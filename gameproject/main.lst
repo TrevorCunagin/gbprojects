@@ -1,0 +1,612 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.0.7 #12016 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module main
+                                      6 	.optsdcc -mgbz80
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _main
+                                     12 	.globl _set_sprite_data
+                                     13 	.globl _delay
+                                     14 	.globl _mainchar
+                                     15 ;--------------------------------------------------------
+                                     16 ; special function registers
+                                     17 ;--------------------------------------------------------
+                                     18 ;--------------------------------------------------------
+                                     19 ; ram data
+                                     20 ;--------------------------------------------------------
+                                     21 	.area _DATA
+      000000                         22 _mainchar::
+      000000                         23 	.ds 256
+                                     24 ;--------------------------------------------------------
+                                     25 ; absolute external ram data
+                                     26 ;--------------------------------------------------------
+                                     27 	.area _DABS (ABS)
+                                     28 ;--------------------------------------------------------
+                                     29 ; global & static initialisations
+                                     30 ;--------------------------------------------------------
+                                     31 	.area _HOME
+                                     32 	.area _GSINIT
+                                     33 	.area _GSFINAL
+                                     34 	.area _GSINIT
+                                     35 ;mainchar.c:26: unsigned char mainchar[] =
+      000000 21r00r00                36 	ld	hl, #_mainchar
+      000003 36 0F                   37 	ld	(hl), #0x0f
+      000005 21r01r00                38 	ld	hl, #(_mainchar + 0x0001)
+      000008 36 0F                   39 	ld	(hl), #0x0f
+      00000A 21r02r00                40 	ld	hl, #(_mainchar + 0x0002)
+      00000D 36 00                   41 	ld	(hl), #0x00
+      00000F 21r03r00                42 	ld	hl, #(_mainchar + 0x0003)
+      000012 36 1F                   43 	ld	(hl), #0x1f
+      000014 21r04r00                44 	ld	hl, #(_mainchar + 0x0004)
+      000017 36 1F                   45 	ld	(hl), #0x1f
+      000019 21r05r00                46 	ld	hl, #(_mainchar + 0x0005)
+      00001C 36 1F                   47 	ld	(hl), #0x1f
+      00001E 21r06r00                48 	ld	hl, #(_mainchar + 0x0006)
+      000021 36 00                   49 	ld	(hl), #0x00
+      000023 21r07r00                50 	ld	hl, #(_mainchar + 0x0007)
+      000026 36 1F                   51 	ld	(hl), #0x1f
+      000028 21r08r00                52 	ld	hl, #(_mainchar + 0x0008)
+      00002B 36 1A                   53 	ld	(hl), #0x1a
+      00002D 21r09r00                54 	ld	hl, #(_mainchar + 0x0009)
+      000030 36 12                   55 	ld	(hl), #0x12
+      000032 21r0Ar00                56 	ld	hl, #(_mainchar + 0x000a)
+      000035 36 12                   57 	ld	(hl), #0x12
+      000037 21r0Br00                58 	ld	hl, #(_mainchar + 0x000b)
+      00003A 36 12                   59 	ld	(hl), #0x12
+      00003C 21r0Cr00                60 	ld	hl, #(_mainchar + 0x000c)
+      00003F 36 0C                   61 	ld	(hl), #0x0c
+      000041 21r0Dr00                62 	ld	hl, #(_mainchar + 0x000d)
+      000044 36 08                   63 	ld	(hl), #0x08
+      000046 21r0Er00                64 	ld	hl, #(_mainchar + 0x000e)
+      000049 36 05                   65 	ld	(hl), #0x05
+      00004B 21r0Fr00                66 	ld	hl, #(_mainchar + 0x000f)
+      00004E 36 04                   67 	ld	(hl), #0x04
+      000050 21r10r00                68 	ld	hl, #(_mainchar + 0x0010)
+      000053 36 03                   69 	ld	(hl), #0x03
+      000055 21r11r00                70 	ld	hl, #(_mainchar + 0x0011)
+      000058 36 03                   71 	ld	(hl), #0x03
+      00005A 21r12r00                72 	ld	hl, #(_mainchar + 0x0012)
+      00005D 36 04                   73 	ld	(hl), #0x04
+      00005F 21r13r00                74 	ld	hl, #(_mainchar + 0x0013)
+      000062 36 07                   75 	ld	(hl), #0x07
+      000064 21r14r00                76 	ld	hl, #(_mainchar + 0x0014)
+      000067 36 08                   77 	ld	(hl), #0x08
+      000069 21r15r00                78 	ld	hl, #(_mainchar + 0x0015)
+      00006C 36 0F                   79 	ld	(hl), #0x0f
+      00006E 21r16r00                80 	ld	hl, #(_mainchar + 0x0016)
+      000071 36 10                   81 	ld	(hl), #0x10
+      000073 21r17r00                82 	ld	hl, #(_mainchar + 0x0017)
+      000076 36 17                   83 	ld	(hl), #0x17
+      000078 21r18r00                84 	ld	hl, #(_mainchar + 0x0018)
+      00007B 36 18                   85 	ld	(hl), #0x18
+      00007D 21r19r00                86 	ld	hl, #(_mainchar + 0x0019)
+      000080 36 1F                   87 	ld	(hl), #0x1f
+      000082 21r1Ar00                88 	ld	hl, #(_mainchar + 0x001a)
+      000085 36 07                   89 	ld	(hl), #0x07
+      000087 21r1Br00                90 	ld	hl, #(_mainchar + 0x001b)
+      00008A 36 07                   91 	ld	(hl), #0x07
+      00008C 21r1Cr00                92 	ld	hl, #(_mainchar + 0x001c)
+      00008F 36 06                   93 	ld	(hl), #0x06
+      000091 21r1Dr00                94 	ld	hl, #(_mainchar + 0x001d)
+      000094 36 06                   95 	ld	(hl), #0x06
+      000096 21r1Er00                96 	ld	hl, #(_mainchar + 0x001e)
+      000099 36 00                   97 	ld	(hl), #0x00
+      00009B 21r1Fr00                98 	ld	hl, #(_mainchar + 0x001f)
+      00009E 36 0E                   99 	ld	(hl), #0x0e
+      0000A0 21r20r00               100 	ld	hl, #(_mainchar + 0x0020)
+      0000A3 36 F0                  101 	ld	(hl), #0xf0
+      0000A5 21r21r00               102 	ld	hl, #(_mainchar + 0x0021)
+      0000A8 36 F0                  103 	ld	(hl), #0xf0
+      0000AA 21r22r00               104 	ld	hl, #(_mainchar + 0x0022)
+      0000AD 36 00                  105 	ld	(hl), #0x00
+      0000AF 21r23r00               106 	ld	hl, #(_mainchar + 0x0023)
+      0000B2 36 F8                  107 	ld	(hl), #0xf8
+      0000B4 21r24r00               108 	ld	hl, #(_mainchar + 0x0024)
+      0000B7 36 F8                  109 	ld	(hl), #0xf8
+      0000B9 21r25r00               110 	ld	hl, #(_mainchar + 0x0025)
+      0000BC 36 F8                  111 	ld	(hl), #0xf8
+      0000BE 21r26r00               112 	ld	hl, #(_mainchar + 0x0026)
+      0000C1 36 00                  113 	ld	(hl), #0x00
+      0000C3 21r27r00               114 	ld	hl, #(_mainchar + 0x0027)
+      0000C6 36 F8                  115 	ld	(hl), #0xf8
+      0000C8 21r28r00               116 	ld	hl, #(_mainchar + 0x0028)
+      0000CB 36 58                  117 	ld	(hl), #0x58
+      0000CD 21r29r00               118 	ld	hl, #(_mainchar + 0x0029)
+      0000D0 36 48                  119 	ld	(hl), #0x48
+      0000D2 21r2Ar00               120 	ld	hl, #(_mainchar + 0x002a)
+      0000D5 36 48                  121 	ld	(hl), #0x48
+      0000D7 21r2Br00               122 	ld	hl, #(_mainchar + 0x002b)
+      0000DA 36 48                  123 	ld	(hl), #0x48
+      0000DC 21r2Cr00               124 	ld	hl, #(_mainchar + 0x002c)
+      0000DF 36 30                  125 	ld	(hl), #0x30
+      0000E1 21r2Dr00               126 	ld	hl, #(_mainchar + 0x002d)
+      0000E4 36 10                  127 	ld	(hl), #0x10
+      0000E6 21r2Er00               128 	ld	hl, #(_mainchar + 0x002e)
+      0000E9 36 A0                  129 	ld	(hl), #0xa0
+      0000EB 21r2Fr00               130 	ld	hl, #(_mainchar + 0x002f)
+      0000EE 36 20                  131 	ld	(hl), #0x20
+      0000F0 21r30r00               132 	ld	hl, #(_mainchar + 0x0030)
+      0000F3 36 C0                  133 	ld	(hl), #0xc0
+      0000F5 21r31r00               134 	ld	hl, #(_mainchar + 0x0031)
+      0000F8 36 C0                  135 	ld	(hl), #0xc0
+      0000FA 21r32r00               136 	ld	hl, #(_mainchar + 0x0032)
+      0000FD 36 20                  137 	ld	(hl), #0x20
+      0000FF 21r33r00               138 	ld	hl, #(_mainchar + 0x0033)
+      000102 36 E0                  139 	ld	(hl), #0xe0
+      000104 21r34r00               140 	ld	hl, #(_mainchar + 0x0034)
+      000107 36 10                  141 	ld	(hl), #0x10
+      000109 21r35r00               142 	ld	hl, #(_mainchar + 0x0035)
+      00010C 36 F0                  143 	ld	(hl), #0xf0
+      00010E 21r36r00               144 	ld	hl, #(_mainchar + 0x0036)
+      000111 36 08                  145 	ld	(hl), #0x08
+      000113 21r37r00               146 	ld	hl, #(_mainchar + 0x0037)
+      000116 36 E8                  147 	ld	(hl), #0xe8
+      000118 21r38r00               148 	ld	hl, #(_mainchar + 0x0038)
+      00011B 36 18                  149 	ld	(hl), #0x18
+      00011D 21r39r00               150 	ld	hl, #(_mainchar + 0x0039)
+      000120 36 F8                  151 	ld	(hl), #0xf8
+      000122 21r3Ar00               152 	ld	hl, #(_mainchar + 0x003a)
+      000125 36 E0                  153 	ld	(hl), #0xe0
+      000127 21r3Br00               154 	ld	hl, #(_mainchar + 0x003b)
+      00012A 36 E0                  155 	ld	(hl), #0xe0
+      00012C 21r3Cr00               156 	ld	hl, #(_mainchar + 0x003c)
+      00012F 36 60                  157 	ld	(hl), #0x60
+      000131 21r3Dr00               158 	ld	hl, #(_mainchar + 0x003d)
+      000134 36 60                  159 	ld	(hl), #0x60
+      000136 21r3Er00               160 	ld	hl, #(_mainchar + 0x003e)
+      000139 36 00                  161 	ld	(hl), #0x00
+      00013B 21r3Fr00               162 	ld	hl, #(_mainchar + 0x003f)
+      00013E 36 70                  163 	ld	(hl), #0x70
+      000140 21r40r00               164 	ld	hl, #(_mainchar + 0x0040)
+      000143 36 0F                  165 	ld	(hl), #0x0f
+      000145 21r41r00               166 	ld	hl, #(_mainchar + 0x0041)
+      000148 36 0F                  167 	ld	(hl), #0x0f
+      00014A 21r42r00               168 	ld	hl, #(_mainchar + 0x0042)
+      00014D 36 00                  169 	ld	(hl), #0x00
+      00014F 21r43r00               170 	ld	hl, #(_mainchar + 0x0043)
+      000152 36 1F                  171 	ld	(hl), #0x1f
+      000154 21r44r00               172 	ld	hl, #(_mainchar + 0x0044)
+      000157 36 1F                  173 	ld	(hl), #0x1f
+      000159 21r45r00               174 	ld	hl, #(_mainchar + 0x0045)
+      00015C 36 1F                  175 	ld	(hl), #0x1f
+      00015E 21r46r00               176 	ld	hl, #(_mainchar + 0x0046)
+      000161 36 00                  177 	ld	(hl), #0x00
+      000163 21r47r00               178 	ld	hl, #(_mainchar + 0x0047)
+      000166 36 1F                  179 	ld	(hl), #0x1f
+      000168 21r48r00               180 	ld	hl, #(_mainchar + 0x0048)
+      00016B 36 10                  181 	ld	(hl), #0x10
+      00016D 21r49r00               182 	ld	hl, #(_mainchar + 0x0049)
+      000170 36 10                  183 	ld	(hl), #0x10
+      000172 21r4Ar00               184 	ld	hl, #(_mainchar + 0x004a)
+      000175 36 10                  185 	ld	(hl), #0x10
+      000177 21r4Br00               186 	ld	hl, #(_mainchar + 0x004b)
+      00017A 36 10                  187 	ld	(hl), #0x10
+      00017C 21r4Cr00               188 	ld	hl, #(_mainchar + 0x004c)
+      00017F 36 08                  189 	ld	(hl), #0x08
+      000181 21r4Dr00               190 	ld	hl, #(_mainchar + 0x004d)
+      000184 36 08                  191 	ld	(hl), #0x08
+      000186 21r4Er00               192 	ld	hl, #(_mainchar + 0x004e)
+      000189 36 04                  193 	ld	(hl), #0x04
+      00018B 21r4Fr00               194 	ld	hl, #(_mainchar + 0x004f)
+      00018E 36 04                  195 	ld	(hl), #0x04
+      000190 21r50r00               196 	ld	hl, #(_mainchar + 0x0050)
+      000193 36 03                  197 	ld	(hl), #0x03
+      000195 21r51r00               198 	ld	hl, #(_mainchar + 0x0051)
+      000198 36 03                  199 	ld	(hl), #0x03
+      00019A 21r52r00               200 	ld	hl, #(_mainchar + 0x0052)
+      00019D 36 04                  201 	ld	(hl), #0x04
+      00019F 21r53r00               202 	ld	hl, #(_mainchar + 0x0053)
+      0001A2 36 07                  203 	ld	(hl), #0x07
+      0001A4 21r54r00               204 	ld	hl, #(_mainchar + 0x0054)
+      0001A7 36 08                  205 	ld	(hl), #0x08
+      0001A9 21r55r00               206 	ld	hl, #(_mainchar + 0x0055)
+      0001AC 36 0F                  207 	ld	(hl), #0x0f
+      0001AE 21r56r00               208 	ld	hl, #(_mainchar + 0x0056)
+      0001B1 36 0A                  209 	ld	(hl), #0x0a
+      0001B3 21r57r00               210 	ld	hl, #(_mainchar + 0x0057)
+      0001B6 36 0B                  211 	ld	(hl), #0x0b
+      0001B8 21r58r00               212 	ld	hl, #(_mainchar + 0x0058)
+      0001BB 36 0E                  213 	ld	(hl), #0x0e
+      0001BD 21r59r00               214 	ld	hl, #(_mainchar + 0x0059)
+      0001C0 36 0F                  215 	ld	(hl), #0x0f
+      0001C2 21r5Ar00               216 	ld	hl, #(_mainchar + 0x005a)
+      0001C5 36 03                  217 	ld	(hl), #0x03
+      0001C7 21r5Br00               218 	ld	hl, #(_mainchar + 0x005b)
+      0001CA 36 03                  219 	ld	(hl), #0x03
+      0001CC 21r5Cr00               220 	ld	hl, #(_mainchar + 0x005c)
+      0001CF 36 03                  221 	ld	(hl), #0x03
+      0001D1 21r5Dr00               222 	ld	hl, #(_mainchar + 0x005d)
+      0001D4 36 03                  223 	ld	(hl), #0x03
+      0001D6 21r5Er00               224 	ld	hl, #(_mainchar + 0x005e)
+      0001D9 36 00                  225 	ld	(hl), #0x00
+      0001DB 21r5Fr00               226 	ld	hl, #(_mainchar + 0x005f)
+      0001DE 36 03                  227 	ld	(hl), #0x03
+      0001E0 21r60r00               228 	ld	hl, #(_mainchar + 0x0060)
+      0001E3 36 E0                  229 	ld	(hl), #0xe0
+      0001E5 21r61r00               230 	ld	hl, #(_mainchar + 0x0061)
+      0001E8 36 E0                  231 	ld	(hl), #0xe0
+      0001EA 21r62r00               232 	ld	hl, #(_mainchar + 0x0062)
+      0001ED 36 00                  233 	ld	(hl), #0x00
+      0001EF 21r63r00               234 	ld	hl, #(_mainchar + 0x0063)
+      0001F2 36 F0                  235 	ld	(hl), #0xf0
+      0001F4 21r64r00               236 	ld	hl, #(_mainchar + 0x0064)
+      0001F7 36 F0                  237 	ld	(hl), #0xf0
+      0001F9 21r65r00               238 	ld	hl, #(_mainchar + 0x0065)
+      0001FC 36 F0                  239 	ld	(hl), #0xf0
+      0001FE 21r66r00               240 	ld	hl, #(_mainchar + 0x0066)
+      000201 36 00                  241 	ld	(hl), #0x00
+      000203 21r67r00               242 	ld	hl, #(_mainchar + 0x0067)
+      000206 36 F0                  243 	ld	(hl), #0xf0
+      000208 21r68r00               244 	ld	hl, #(_mainchar + 0x0068)
+      00020B 36 50                  245 	ld	(hl), #0x50
+      00020D 21r69r00               246 	ld	hl, #(_mainchar + 0x0069)
+      000210 36 50                  247 	ld	(hl), #0x50
+      000212 21r6Ar00               248 	ld	hl, #(_mainchar + 0x006a)
+      000215 36 50                  249 	ld	(hl), #0x50
+      000217 21r6Br00               250 	ld	hl, #(_mainchar + 0x006b)
+      00021A 36 50                  251 	ld	(hl), #0x50
+      00021C 21r6Cr00               252 	ld	hl, #(_mainchar + 0x006c)
+      00021F 36 A0                  253 	ld	(hl), #0xa0
+      000221 21r6Dr00               254 	ld	hl, #(_mainchar + 0x006d)
+      000224 36 20                  255 	ld	(hl), #0x20
+      000226 21r6Er00               256 	ld	hl, #(_mainchar + 0x006e)
+      000229 36 40                  257 	ld	(hl), #0x40
+      00022B 21r6Fr00               258 	ld	hl, #(_mainchar + 0x006f)
+      00022E 36 40                  259 	ld	(hl), #0x40
+      000230 21r70r00               260 	ld	hl, #(_mainchar + 0x0070)
+      000233 36 80                  261 	ld	(hl), #0x80
+      000235 21r71r00               262 	ld	hl, #(_mainchar + 0x0071)
+      000238 36 80                  263 	ld	(hl), #0x80
+      00023A 21r72r00               264 	ld	hl, #(_mainchar + 0x0072)
+      00023D 36 40                  265 	ld	(hl), #0x40
+      00023F 21r73r00               266 	ld	hl, #(_mainchar + 0x0073)
+      000242 36 C0                  267 	ld	(hl), #0xc0
+      000244 21r74r00               268 	ld	hl, #(_mainchar + 0x0074)
+      000247 36 40                  269 	ld	(hl), #0x40
+      000249 21r75r00               270 	ld	hl, #(_mainchar + 0x0075)
+      00024C 36 C0                  271 	ld	(hl), #0xc0
+      00024E 21r76r00               272 	ld	hl, #(_mainchar + 0x0076)
+      000251 36 40                  273 	ld	(hl), #0x40
+      000253 21r77r00               274 	ld	hl, #(_mainchar + 0x0077)
+      000256 36 C0                  275 	ld	(hl), #0xc0
+      000258 21r78r00               276 	ld	hl, #(_mainchar + 0x0078)
+      00025B 36 40                  277 	ld	(hl), #0x40
+      00025D 21r79r00               278 	ld	hl, #(_mainchar + 0x0079)
+      000260 36 C0                  279 	ld	(hl), #0xc0
+      000262 21r7Ar00               280 	ld	hl, #(_mainchar + 0x007a)
+      000265 36 80                  281 	ld	(hl), #0x80
+      000267 21r7Br00               282 	ld	hl, #(_mainchar + 0x007b)
+      00026A 36 80                  283 	ld	(hl), #0x80
+      00026C 21r7Cr00               284 	ld	hl, #(_mainchar + 0x007c)
+      00026F 36 80                  285 	ld	(hl), #0x80
+      000271 21r7Dr00               286 	ld	hl, #(_mainchar + 0x007d)
+      000274 36 80                  287 	ld	(hl), #0x80
+      000276 21r7Er00               288 	ld	hl, #(_mainchar + 0x007e)
+      000279 36 00                  289 	ld	(hl), #0x00
+      00027B 21r7Fr00               290 	ld	hl, #(_mainchar + 0x007f)
+      00027E 36 C0                  291 	ld	(hl), #0xc0
+      000280 21r80r00               292 	ld	hl, #(_mainchar + 0x0080)
+      000283 36 07                  293 	ld	(hl), #0x07
+      000285 21r81r00               294 	ld	hl, #(_mainchar + 0x0081)
+      000288 36 07                  295 	ld	(hl), #0x07
+      00028A 21r82r00               296 	ld	hl, #(_mainchar + 0x0082)
+      00028D 36 00                  297 	ld	(hl), #0x00
+      00028F 21r83r00               298 	ld	hl, #(_mainchar + 0x0083)
+      000292 36 0F                  299 	ld	(hl), #0x0f
+      000294 21r84r00               300 	ld	hl, #(_mainchar + 0x0084)
+      000297 36 0F                  301 	ld	(hl), #0x0f
+      000299 21r85r00               302 	ld	hl, #(_mainchar + 0x0085)
+      00029C 36 0F                  303 	ld	(hl), #0x0f
+      00029E 21r86r00               304 	ld	hl, #(_mainchar + 0x0086)
+      0002A1 36 00                  305 	ld	(hl), #0x00
+      0002A3 21r87r00               306 	ld	hl, #(_mainchar + 0x0087)
+      0002A6 36 0F                  307 	ld	(hl), #0x0f
+      0002A8 21r88r00               308 	ld	hl, #(_mainchar + 0x0088)
+      0002AB 36 0A                  309 	ld	(hl), #0x0a
+      0002AD 21r89r00               310 	ld	hl, #(_mainchar + 0x0089)
+      0002B0 36 0A                  311 	ld	(hl), #0x0a
+      0002B2 21r8Ar00               312 	ld	hl, #(_mainchar + 0x008a)
+      0002B5 36 0A                  313 	ld	(hl), #0x0a
+      0002B7 21r8Br00               314 	ld	hl, #(_mainchar + 0x008b)
+      0002BA 36 0A                  315 	ld	(hl), #0x0a
+      0002BC 21r8Cr00               316 	ld	hl, #(_mainchar + 0x008c)
+      0002BF 36 05                  317 	ld	(hl), #0x05
+      0002C1 21r8Dr00               318 	ld	hl, #(_mainchar + 0x008d)
+      0002C4 36 04                  319 	ld	(hl), #0x04
+      0002C6 21r8Er00               320 	ld	hl, #(_mainchar + 0x008e)
+      0002C9 36 02                  321 	ld	(hl), #0x02
+      0002CB 21r8Fr00               322 	ld	hl, #(_mainchar + 0x008f)
+      0002CE 36 02                  323 	ld	(hl), #0x02
+      0002D0 21r90r00               324 	ld	hl, #(_mainchar + 0x0090)
+      0002D3 36 01                  325 	ld	(hl), #0x01
+      0002D5 21r91r00               326 	ld	hl, #(_mainchar + 0x0091)
+      0002D8 36 01                  327 	ld	(hl), #0x01
+      0002DA 21r92r00               328 	ld	hl, #(_mainchar + 0x0092)
+      0002DD 36 02                  329 	ld	(hl), #0x02
+      0002DF 21r93r00               330 	ld	hl, #(_mainchar + 0x0093)
+      0002E2 36 03                  331 	ld	(hl), #0x03
+      0002E4 21r94r00               332 	ld	hl, #(_mainchar + 0x0094)
+      0002E7 36 02                  333 	ld	(hl), #0x02
+      0002E9 21r95r00               334 	ld	hl, #(_mainchar + 0x0095)
+      0002EC 36 03                  335 	ld	(hl), #0x03
+      0002EE 21r96r00               336 	ld	hl, #(_mainchar + 0x0096)
+      0002F1 36 02                  337 	ld	(hl), #0x02
+      0002F3 21r97r00               338 	ld	hl, #(_mainchar + 0x0097)
+      0002F6 36 03                  339 	ld	(hl), #0x03
+      0002F8 21r98r00               340 	ld	hl, #(_mainchar + 0x0098)
+      0002FB 36 02                  341 	ld	(hl), #0x02
+      0002FD 21r99r00               342 	ld	hl, #(_mainchar + 0x0099)
+      000300 36 03                  343 	ld	(hl), #0x03
+      000302 21r9Ar00               344 	ld	hl, #(_mainchar + 0x009a)
+      000305 36 01                  345 	ld	(hl), #0x01
+      000307 21r9Br00               346 	ld	hl, #(_mainchar + 0x009b)
+      00030A 36 01                  347 	ld	(hl), #0x01
+      00030C 21r9Cr00               348 	ld	hl, #(_mainchar + 0x009c)
+      00030F 36 01                  349 	ld	(hl), #0x01
+      000311 21r9Dr00               350 	ld	hl, #(_mainchar + 0x009d)
+      000314 36 01                  351 	ld	(hl), #0x01
+      000316 21r9Er00               352 	ld	hl, #(_mainchar + 0x009e)
+      000319 36 00                  353 	ld	(hl), #0x00
+      00031B 21r9Fr00               354 	ld	hl, #(_mainchar + 0x009f)
+      00031E 36 03                  355 	ld	(hl), #0x03
+      000320 21rA0r00               356 	ld	hl, #(_mainchar + 0x00a0)
+      000323 36 F0                  357 	ld	(hl), #0xf0
+      000325 21rA1r00               358 	ld	hl, #(_mainchar + 0x00a1)
+      000328 36 F0                  359 	ld	(hl), #0xf0
+      00032A 21rA2r00               360 	ld	hl, #(_mainchar + 0x00a2)
+      00032D 36 00                  361 	ld	(hl), #0x00
+      00032F 21rA3r00               362 	ld	hl, #(_mainchar + 0x00a3)
+      000332 36 F8                  363 	ld	(hl), #0xf8
+      000334 21rA4r00               364 	ld	hl, #(_mainchar + 0x00a4)
+      000337 36 F8                  365 	ld	(hl), #0xf8
+      000339 21rA5r00               366 	ld	hl, #(_mainchar + 0x00a5)
+      00033C 36 F8                  367 	ld	(hl), #0xf8
+      00033E 21rA6r00               368 	ld	hl, #(_mainchar + 0x00a6)
+      000341 36 00                  369 	ld	(hl), #0x00
+      000343 21rA7r00               370 	ld	hl, #(_mainchar + 0x00a7)
+      000346 36 F8                  371 	ld	(hl), #0xf8
+      000348 21rA8r00               372 	ld	hl, #(_mainchar + 0x00a8)
+      00034B 36 08                  373 	ld	(hl), #0x08
+      00034D 21rA9r00               374 	ld	hl, #(_mainchar + 0x00a9)
+      000350 36 08                  375 	ld	(hl), #0x08
+      000352 21rAAr00               376 	ld	hl, #(_mainchar + 0x00aa)
+      000355 36 08                  377 	ld	(hl), #0x08
+      000357 21rABr00               378 	ld	hl, #(_mainchar + 0x00ab)
+      00035A 36 08                  379 	ld	(hl), #0x08
+      00035C 21rACr00               380 	ld	hl, #(_mainchar + 0x00ac)
+      00035F 36 10                  381 	ld	(hl), #0x10
+      000361 21rADr00               382 	ld	hl, #(_mainchar + 0x00ad)
+      000364 36 10                  383 	ld	(hl), #0x10
+      000366 21rAEr00               384 	ld	hl, #(_mainchar + 0x00ae)
+      000369 36 20                  385 	ld	(hl), #0x20
+      00036B 21rAFr00               386 	ld	hl, #(_mainchar + 0x00af)
+      00036E 36 20                  387 	ld	(hl), #0x20
+      000370 21rB0r00               388 	ld	hl, #(_mainchar + 0x00b0)
+      000373 36 C0                  389 	ld	(hl), #0xc0
+      000375 21rB1r00               390 	ld	hl, #(_mainchar + 0x00b1)
+      000378 36 C0                  391 	ld	(hl), #0xc0
+      00037A 21rB2r00               392 	ld	hl, #(_mainchar + 0x00b2)
+      00037D 36 20                  393 	ld	(hl), #0x20
+      00037F 21rB3r00               394 	ld	hl, #(_mainchar + 0x00b3)
+      000382 36 E0                  395 	ld	(hl), #0xe0
+      000384 21rB4r00               396 	ld	hl, #(_mainchar + 0x00b4)
+      000387 36 10                  397 	ld	(hl), #0x10
+      000389 21rB5r00               398 	ld	hl, #(_mainchar + 0x00b5)
+      00038C 36 F0                  399 	ld	(hl), #0xf0
+      00038E 21rB6r00               400 	ld	hl, #(_mainchar + 0x00b6)
+      000391 36 50                  401 	ld	(hl), #0x50
+      000393 21rB7r00               402 	ld	hl, #(_mainchar + 0x00b7)
+      000396 36 D0                  403 	ld	(hl), #0xd0
+      000398 21rB8r00               404 	ld	hl, #(_mainchar + 0x00b8)
+      00039B 36 70                  405 	ld	(hl), #0x70
+      00039D 21rB9r00               406 	ld	hl, #(_mainchar + 0x00b9)
+      0003A0 36 F0                  407 	ld	(hl), #0xf0
+      0003A2 21rBAr00               408 	ld	hl, #(_mainchar + 0x00ba)
+      0003A5 36 C0                  409 	ld	(hl), #0xc0
+      0003A7 21rBBr00               410 	ld	hl, #(_mainchar + 0x00bb)
+      0003AA 36 C0                  411 	ld	(hl), #0xc0
+      0003AC 21rBCr00               412 	ld	hl, #(_mainchar + 0x00bc)
+      0003AF 36 C0                  413 	ld	(hl), #0xc0
+      0003B1 21rBDr00               414 	ld	hl, #(_mainchar + 0x00bd)
+      0003B4 36 C0                  415 	ld	(hl), #0xc0
+      0003B6 21rBEr00               416 	ld	hl, #(_mainchar + 0x00be)
+      0003B9 36 00                  417 	ld	(hl), #0x00
+      0003BB 21rBFr00               418 	ld	hl, #(_mainchar + 0x00bf)
+      0003BE 36 C0                  419 	ld	(hl), #0xc0
+      0003C0 21rC0r00               420 	ld	hl, #(_mainchar + 0x00c0)
+      0003C3 36 0F                  421 	ld	(hl), #0x0f
+      0003C5 21rC1r00               422 	ld	hl, #(_mainchar + 0x00c1)
+      0003C8 36 0F                  423 	ld	(hl), #0x0f
+      0003CA 21rC2r00               424 	ld	hl, #(_mainchar + 0x00c2)
+      0003CD 36 00                  425 	ld	(hl), #0x00
+      0003CF 21rC3r00               426 	ld	hl, #(_mainchar + 0x00c3)
+      0003D2 36 1F                  427 	ld	(hl), #0x1f
+      0003D4 21rC4r00               428 	ld	hl, #(_mainchar + 0x00c4)
+      0003D7 36 1F                  429 	ld	(hl), #0x1f
+      0003D9 21rC5r00               430 	ld	hl, #(_mainchar + 0x00c5)
+      0003DC 36 1F                  431 	ld	(hl), #0x1f
+      0003DE 21rC6r00               432 	ld	hl, #(_mainchar + 0x00c6)
+      0003E1 36 00                  433 	ld	(hl), #0x00
+      0003E3 21rC7r00               434 	ld	hl, #(_mainchar + 0x00c7)
+      0003E6 36 1F                  435 	ld	(hl), #0x1f
+      0003E8 21rC8r00               436 	ld	hl, #(_mainchar + 0x00c8)
+      0003EB 36 10                  437 	ld	(hl), #0x10
+      0003ED 21rC9r00               438 	ld	hl, #(_mainchar + 0x00c9)
+      0003F0 36 10                  439 	ld	(hl), #0x10
+      0003F2 21rCAr00               440 	ld	hl, #(_mainchar + 0x00ca)
+      0003F5 36 10                  441 	ld	(hl), #0x10
+      0003F7 21rCBr00               442 	ld	hl, #(_mainchar + 0x00cb)
+      0003FA 36 10                  443 	ld	(hl), #0x10
+      0003FC 21rCCr00               444 	ld	hl, #(_mainchar + 0x00cc)
+      0003FF 36 08                  445 	ld	(hl), #0x08
+      000401 21rCDr00               446 	ld	hl, #(_mainchar + 0x00cd)
+      000404 36 08                  447 	ld	(hl), #0x08
+      000406 21rCEr00               448 	ld	hl, #(_mainchar + 0x00ce)
+      000409 36 04                  449 	ld	(hl), #0x04
+      00040B 21rCFr00               450 	ld	hl, #(_mainchar + 0x00cf)
+      00040E 36 04                  451 	ld	(hl), #0x04
+      000410 21rD0r00               452 	ld	hl, #(_mainchar + 0x00d0)
+      000413 36 03                  453 	ld	(hl), #0x03
+      000415 21rD1r00               454 	ld	hl, #(_mainchar + 0x00d1)
+      000418 36 03                  455 	ld	(hl), #0x03
+      00041A 21rD2r00               456 	ld	hl, #(_mainchar + 0x00d2)
+      00041D 36 04                  457 	ld	(hl), #0x04
+      00041F 21rD3r00               458 	ld	hl, #(_mainchar + 0x00d3)
+      000422 36 07                  459 	ld	(hl), #0x07
+      000424 21rD4r00               460 	ld	hl, #(_mainchar + 0x00d4)
+      000427 36 08                  461 	ld	(hl), #0x08
+      000429 21rD5r00               462 	ld	hl, #(_mainchar + 0x00d5)
+      00042C 36 0F                  463 	ld	(hl), #0x0f
+      00042E 21rD6r00               464 	ld	hl, #(_mainchar + 0x00d6)
+      000431 36 10                  465 	ld	(hl), #0x10
+      000433 21rD7r00               466 	ld	hl, #(_mainchar + 0x00d7)
+      000436 36 17                  467 	ld	(hl), #0x17
+      000438 21rD8r00               468 	ld	hl, #(_mainchar + 0x00d8)
+      00043B 36 18                  469 	ld	(hl), #0x18
+      00043D 21rD9r00               470 	ld	hl, #(_mainchar + 0x00d9)
+      000440 36 1F                  471 	ld	(hl), #0x1f
+      000442 21rDAr00               472 	ld	hl, #(_mainchar + 0x00da)
+      000445 36 07                  473 	ld	(hl), #0x07
+      000447 21rDBr00               474 	ld	hl, #(_mainchar + 0x00db)
+      00044A 36 07                  475 	ld	(hl), #0x07
+      00044C 21rDCr00               476 	ld	hl, #(_mainchar + 0x00dc)
+      00044F 36 06                  477 	ld	(hl), #0x06
+      000451 21rDDr00               478 	ld	hl, #(_mainchar + 0x00dd)
+      000454 36 06                  479 	ld	(hl), #0x06
+      000456 21rDEr00               480 	ld	hl, #(_mainchar + 0x00de)
+      000459 36 00                  481 	ld	(hl), #0x00
+      00045B 21rDFr00               482 	ld	hl, #(_mainchar + 0x00df)
+      00045E 36 06                  483 	ld	(hl), #0x06
+      000460 21rE0r00               484 	ld	hl, #(_mainchar + 0x00e0)
+      000463 36 F0                  485 	ld	(hl), #0xf0
+      000465 21rE1r00               486 	ld	hl, #(_mainchar + 0x00e1)
+      000468 36 F0                  487 	ld	(hl), #0xf0
+      00046A 21rE2r00               488 	ld	hl, #(_mainchar + 0x00e2)
+      00046D 36 00                  489 	ld	(hl), #0x00
+      00046F 21rE3r00               490 	ld	hl, #(_mainchar + 0x00e3)
+      000472 36 F8                  491 	ld	(hl), #0xf8
+      000474 21rE4r00               492 	ld	hl, #(_mainchar + 0x00e4)
+      000477 36 F8                  493 	ld	(hl), #0xf8
+      000479 21rE5r00               494 	ld	hl, #(_mainchar + 0x00e5)
+      00047C 36 F8                  495 	ld	(hl), #0xf8
+      00047E 21rE6r00               496 	ld	hl, #(_mainchar + 0x00e6)
+      000481 36 00                  497 	ld	(hl), #0x00
+      000483 21rE7r00               498 	ld	hl, #(_mainchar + 0x00e7)
+      000486 36 F8                  499 	ld	(hl), #0xf8
+      000488 21rE8r00               500 	ld	hl, #(_mainchar + 0x00e8)
+      00048B 36 08                  501 	ld	(hl), #0x08
+      00048D 21rE9r00               502 	ld	hl, #(_mainchar + 0x00e9)
+      000490 36 08                  503 	ld	(hl), #0x08
+      000492 21rEAr00               504 	ld	hl, #(_mainchar + 0x00ea)
+      000495 36 08                  505 	ld	(hl), #0x08
+      000497 21rEBr00               506 	ld	hl, #(_mainchar + 0x00eb)
+      00049A 36 08                  507 	ld	(hl), #0x08
+      00049C 21rECr00               508 	ld	hl, #(_mainchar + 0x00ec)
+      00049F 36 10                  509 	ld	(hl), #0x10
+      0004A1 21rEDr00               510 	ld	hl, #(_mainchar + 0x00ed)
+      0004A4 36 10                  511 	ld	(hl), #0x10
+      0004A6 21rEEr00               512 	ld	hl, #(_mainchar + 0x00ee)
+      0004A9 36 20                  513 	ld	(hl), #0x20
+      0004AB 21rEFr00               514 	ld	hl, #(_mainchar + 0x00ef)
+      0004AE 36 20                  515 	ld	(hl), #0x20
+      0004B0 21rF0r00               516 	ld	hl, #(_mainchar + 0x00f0)
+      0004B3 36 C0                  517 	ld	(hl), #0xc0
+      0004B5 21rF1r00               518 	ld	hl, #(_mainchar + 0x00f1)
+      0004B8 36 C0                  519 	ld	(hl), #0xc0
+      0004BA 21rF2r00               520 	ld	hl, #(_mainchar + 0x00f2)
+      0004BD 36 20                  521 	ld	(hl), #0x20
+      0004BF 21rF3r00               522 	ld	hl, #(_mainchar + 0x00f3)
+      0004C2 36 E0                  523 	ld	(hl), #0xe0
+      0004C4 21rF4r00               524 	ld	hl, #(_mainchar + 0x00f4)
+      0004C7 36 10                  525 	ld	(hl), #0x10
+      0004C9 21rF5r00               526 	ld	hl, #(_mainchar + 0x00f5)
+      0004CC 36 F0                  527 	ld	(hl), #0xf0
+      0004CE 21rF6r00               528 	ld	hl, #(_mainchar + 0x00f6)
+      0004D1 36 08                  529 	ld	(hl), #0x08
+      0004D3 21rF7r00               530 	ld	hl, #(_mainchar + 0x00f7)
+      0004D6 36 E8                  531 	ld	(hl), #0xe8
+      0004D8 21rF8r00               532 	ld	hl, #(_mainchar + 0x00f8)
+      0004DB 36 18                  533 	ld	(hl), #0x18
+      0004DD 21rF9r00               534 	ld	hl, #(_mainchar + 0x00f9)
+      0004E0 36 F8                  535 	ld	(hl), #0xf8
+      0004E2 21rFAr00               536 	ld	hl, #(_mainchar + 0x00fa)
+      0004E5 36 E0                  537 	ld	(hl), #0xe0
+      0004E7 21rFBr00               538 	ld	hl, #(_mainchar + 0x00fb)
+      0004EA 36 E0                  539 	ld	(hl), #0xe0
+      0004EC 21rFCr00               540 	ld	hl, #(_mainchar + 0x00fc)
+      0004EF 36 60                  541 	ld	(hl), #0x60
+      0004F1 21rFDr00               542 	ld	hl, #(_mainchar + 0x00fd)
+      0004F4 36 60                  543 	ld	(hl), #0x60
+      0004F6 21rFEr00               544 	ld	hl, #(_mainchar + 0x00fe)
+      0004F9 36 00                  545 	ld	(hl), #0x00
+      0004FB 21rFFr00               546 	ld	hl, #(_mainchar + 0x00ff)
+      0004FE 36 60                  547 	ld	(hl), #0x60
+                                    548 ;--------------------------------------------------------
+                                    549 ; Home
+                                    550 ;--------------------------------------------------------
+                                    551 	.area _HOME
+                                    552 	.area _HOME
+                                    553 ;--------------------------------------------------------
+                                    554 ; code
+                                    555 ;--------------------------------------------------------
+                                    556 	.area _CODE
+                                    557 ;main.c:4: void main() {
+                                    558 ;	---------------------------------
+                                    559 ; Function main
+                                    560 ; ---------------------------------
+      000000                        561 _main::
+                                    562 ;main.c:5: UINT8 currentspriteindex = 0;
+      000000 0E 00                  563 	ld	c, #0x00
+                                    564 ;main.c:7: set_sprite_data(0, 2, mainchar);
+      000002 21r00r00               565 	ld	hl, #_mainchar
+      000005 E5                     566 	push	hl
+      000006 3E 02                  567 	ld	a, #0x02
+      000008 F5                     568 	push	af
+      000009 33                     569 	inc	sp
+      00000A AF                     570 	xor	a, a
+      00000B F5                     571 	push	af
+      00000C 33                     572 	inc	sp
+      00000D CDr00r00               573 	call	_set_sprite_data
+      000010 E8 04                  574 	add	sp, #4
+                                    575 ;c:/gbdk/include/gb/gb.h:1004: shadow_OAM[nb].tile=tile;
+      000012 21r02r00               576 	ld	hl, #(_shadow_OAM + 0x0002)
+      000015 36 00                  577 	ld	(hl), #0x00
+                                    578 ;c:/gbdk/include/gb/gb.h:1077: OAM_item_t * itm = &shadow_OAM[nb];
+      000017 21r00r00               579 	ld	hl, #_shadow_OAM
+                                    580 ;c:/gbdk/include/gb/gb.h:1078: itm->y=y, itm->x=x;
+      00001A 3E 4E                  581 	ld	a, #0x4e
+      00001C 22                     582 	ld	(hl+), a
+      00001D 36 58                  583 	ld	(hl), #0x58
+                                    584 ;main.c:10: SHOW_SPRITES;
+      00001F F0r00                  585 	ldh	a, (_LCDC_REG+0)
+      000021 F6 02                  586 	or	a, #0x02
+      000023 E0r00                  587 	ldh	(_LCDC_REG+0),a
+                                    588 ;main.c:12: while(1) {
+      000025                        589 00105$:
+                                    590 ;main.c:13: if (currentspriteindex == 0) {
+      000025 79                     591 	ld	a, c
+      000026 B7                     592 	or	a, a
+                                    593 ;main.c:14: currentspriteindex = 1;
+                                    594 ;main.c:17: currentspriteindex = 0;
+      000027 0E 01                  595 	ld	c, #0x01
+      000029 28 02                  596 	jr	Z, 00103$
+      00002B 0E 00                  597 	ld	c, #0x00
+      00002D                        598 00103$:
+                                    599 ;c:/gbdk/include/gb/gb.h:1004: shadow_OAM[nb].tile=tile;
+      00002D 21r02r00               600 	ld	hl, #(_shadow_OAM + 0x0002)
+      000030 71                     601 	ld	(hl), c
+                                    602 ;main.c:21: delay(1000);
+      000031 C5                     603 	push	bc
+      000032 21 E8 03               604 	ld	hl, #0x03e8
+      000035 E5                     605 	push	hl
+      000036 CDr00r00               606 	call	_delay
+      000039 E8 02                  607 	add	sp, #2
+      00003B C1                     608 	pop	bc
+                                    609 ;main.c:24: }
+      00003C 18 E7                  610 	jr	00105$
+                                    611 	.area _CODE
+                                    612 	.area _CABS (ABS)
